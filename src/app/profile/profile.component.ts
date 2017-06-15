@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {GitService} from '../git.service';
 
 @Component({
   selector: 'profile',
@@ -7,7 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor() { }
+	user: any[];
+	
+	
+  constructor(private _gitService: GitService) { 
+	this._gitService.getUser().subscribe(user => {
+		this.user = user;
+	});
+}
 
   ngOnInit() {
   }
