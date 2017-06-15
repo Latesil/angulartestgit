@@ -8,14 +8,24 @@ import {GitService} from '../git.service';
 })
 export class ProfileComponent implements OnInit {
 
-	user: any[];
+	user: any;
+	repos:any[];
+	username:string;
 	
-	
-  constructor(private _gitService: GitService) { 
-	this._gitService.getUser().subscribe(user => {
-		this.user = user;
-	});
-}
+  constructor(private _gitService: GitService) {
+	  this.user = false;
+	}
+	searchUser() {
+		this._gitService.updateUser(this.username);
+		
+		this._gitService.getUser().subscribe(user => {
+			this.user = user;
+		});
+		
+		this._gitService.getRepos().subscribe(repos => {
+			this.repos = repos;
+		});
+	}
 
   ngOnInit() {
   }
